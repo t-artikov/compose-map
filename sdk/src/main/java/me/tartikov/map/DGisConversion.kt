@@ -8,22 +8,23 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import ru.dgis.sdk.coordinates.Arcdegree
+import ru.dgis.sdk.map.LogicalPixel
 
 fun GeoPoint.toDGisWithElevation() = DGisGeoPointWithElevation(Arcdegree(lat), Arcdegree((lon)))
 
 fun Color.toDGis() = DGisColor(toArgb())
 
-private fun dpToZpt(value: Float): Float {
-    return value * 96.0f / 160.0f
+private fun dpToZpt(value: Float): LogicalPixel {
+    return LogicalPixel(value * 96.0f / 160.0f)
 }
 
-fun Dp.toDGis() = DGisLogicalPixel(dpToZpt(value))
+fun Dp.toDGis() = dpToZpt(value)
 
 fun TextStyle.toDGis() = DGisTextStyle(
-    fontSize = if (fontSize.isSp) dpToZpt(fontSize.value) else 8.0f,
+    fontSize = if (fontSize.isSp) dpToZpt(fontSize.value) else LogicalPixel(8.0f),
     color = color.toDGis(),
     strokeColor = shadow?.color?.toDGis() ?: color.toDGis(),
-    strokeWidth = if (shadow != null) dpToZpt(shadow!!.blurRadius) else 0.0f
+    strokeWidth = if (shadow != null) dpToZpt(shadow!!.blurRadius) else LogicalPixel(0.0f)
 )
 
 fun Alignment.toDGis(): DGisAnchor {

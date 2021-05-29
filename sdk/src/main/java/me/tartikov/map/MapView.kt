@@ -6,7 +6,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
-import ru.dgis.sdk.map.createMapObjectManager
 
 private class MapNode(
     val camera: CameraNode,
@@ -92,7 +91,7 @@ private fun createDGisMapView(
 private fun createMapNode(map: DGisMap, view: DGisMapView, options: MapOptions): MapNode {
     val dgisCamera = map.camera
     val camera = CameraNode(dgisCamera, options.cameraState)
-    val objectManager = MapObjectManager(createMapObjectManager(map))
+    val objectManager = MapObjectManager(DGisMapObjectManager(map))
 
     val touchEventProcessor =
         TouchEventProcessor(map, options.onClick, dgisCamera.projection, objectManager)

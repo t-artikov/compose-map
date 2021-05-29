@@ -51,7 +51,7 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
             return
         }
 
-        val dgisObject = dgisManager.addCircle(
+        val dgisObject = DGisCircle(
             CircleOptions(
                 position,
                 radius,
@@ -60,6 +60,7 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
                 strokeColor.toDGis()
             )
         )
+        dgisManager.addObject(dgisObject)
         objects[id] =
             CircleNode(dgisObject, position, radius, color, strokeWidth, strokeColor).also {
                 applyCommonOptions(it, onClick)
@@ -90,13 +91,14 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
             return
         }
 
-        val dgisObject = dgisManager.addPolyline(
+        val dgisObject = DGisPolyline(
             PolylineOptions(
                 points,
                 width.toDGis(),
                 color.toDGis()
             )
         )
+        dgisManager.addObject(dgisObject)
         objects[id] = PolylineNode(dgisObject, points, width, color).also {
             applyCommonOptions(it, onClick)
         }
@@ -141,7 +143,7 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
             return
         }
 
-        val dgisObject = dgisManager.addPolygon(
+        val dgisObject = DGisPolygon(
             PolygonOptions(
                 getContours(contour, holes),
                 color.toDGis(),
@@ -149,6 +151,7 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
                 strokeColor.toDGis()
             )
         )
+        dgisManager.addObject(dgisObject)
         objects[id] = PolygonNode(dgisObject, contour, holes, color, strokeWidth, strokeColor).also {
             applyCommonOptions(it, onClick)
         }
@@ -193,7 +196,7 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
             return
         }
 
-        val dgisObject = dgisManager.addMarker(
+        val dgisObject = DGisMarker(
             MarkerOptions(
                 position.toDGisWithElevation(),
                 icon = icon,
@@ -203,6 +206,7 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
                 draggable = onDrag != null
             )
         )
+        dgisManager.addObject(dgisObject)
         objects[id] = MarkerNode(dgisObject, position, icon, anchor, text, textStyle, onDrag).also {
             applyCommonOptions(it, onClick, onDrag != null)
         }
@@ -211,7 +215,7 @@ internal class MapObjectManager(private val dgisManager: DGisMapObjectManager) :
     fun removeObject(id: MapObjectId) {
         objects[id]?.dgisObject?.let {
             objects.remove(id)
-            it.remove()
+            dgisManager.removeObject(it)
             it.close()
         }
     }
