@@ -10,24 +10,20 @@ import androidx.compose.ui.unit.LayoutDirection
 import ru.dgis.sdk.coordinates.Arcdegree
 import ru.dgis.sdk.map.LogicalPixel
 
-fun GeoPoint.toDGisWithElevation() = DGisGeoPointWithElevation(Arcdegree(lat), Arcdegree((lon)))
+internal fun GeoPoint.toDGisWithElevation() = DGisGeoPointWithElevation(Arcdegree(lat), Arcdegree((lon)))
 
-fun Color.toDGis() = DGisColor(toArgb())
+internal fun Color.toDGis() = DGisColor(toArgb())
 
-private fun dpToZpt(value: Float): LogicalPixel {
-    return LogicalPixel(value * 96.0f / 160.0f)
-}
+internal fun Dp.toDGis() = DGisLogicalPixel(value)
 
-fun Dp.toDGis() = dpToZpt(value)
-
-fun TextStyle.toDGis() = DGisTextStyle(
-    fontSize = if (fontSize.isSp) dpToZpt(fontSize.value) else LogicalPixel(8.0f),
+internal fun TextStyle.toDGis() = DGisTextStyle(
+    fontSize = if (fontSize.isSp) DGisLogicalPixel(fontSize.value) else DGisLogicalPixel(8.0f),
     color = color.toDGis(),
     strokeColor = shadow?.color?.toDGis() ?: color.toDGis(),
-    strokeWidth = if (shadow != null) dpToZpt(shadow!!.blurRadius) else LogicalPixel(0.0f)
+    strokeWidth = if (shadow != null) DGisLogicalPixel(shadow!!.blurRadius) else DGisLogicalPixel(0.0f)
 )
 
-fun Alignment.toDGis(): DGisAnchor {
+internal fun Alignment.toDGis(): DGisAnchor {
     val scale = 1000
     align(IntSize.Zero, IntSize(scale, scale), LayoutDirection.Ltr).let {
         return DGisAnchor(it.x.toFloat() / scale, it.y.toFloat() / scale)

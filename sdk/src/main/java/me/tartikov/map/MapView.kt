@@ -24,7 +24,7 @@ private class MapOptions(
 
 private val DefaultCameraPosition = CameraPosition(
     GeoPoint(55.740444, 37.619524),
-    Zoom(9.0f)
+    Zoom(9.5f)
 )
 
 // heh, fix it in SDK

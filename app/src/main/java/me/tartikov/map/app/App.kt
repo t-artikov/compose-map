@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import ru.dgis.sdk.DGis
-import ru.dgis.sdk.context.ApiKeys
+import ru.dgis.sdk.ApiKeys
 
 private fun initDgis(context: Context) {
     val keys = ApiKeys(

@@ -71,7 +71,7 @@ private fun createClustering(mask: Bitmap): SuperCluster {
         }
     }
 
-    return SuperCluster(25, 256, 0, 7, 64, Array(100000) {
+    return SuperCluster(40, 256, 0, 7, 64, Array(100000) {
         val isCrown = Random.nextDouble() < 0.1
         val properties = if (isCrown) mapOf("crown" to true) else null
         GeoJsonFeature(randomEarthPoint(), properties)
