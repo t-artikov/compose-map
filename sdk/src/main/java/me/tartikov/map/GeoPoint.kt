@@ -1,9 +1,10 @@
 package me.tartikov.map
-import ru.dgis.sdk.coordinates.Arcdegree
+import ru.dgis.sdk.coordinates.Latitude
+import ru.dgis.sdk.coordinates.Longitude
 import kotlin.math.*
 
 fun GeoPoint(latitude: Double, longitude: Double): GeoPoint {
-    return GeoPoint(Arcdegree(latitude), Arcdegree(longitude))
+    return GeoPoint(Latitude(latitude), Longitude(longitude))
 }
 
 val GeoPoint.lat get() = latitude.value

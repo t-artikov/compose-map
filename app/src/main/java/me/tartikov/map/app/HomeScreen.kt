@@ -30,7 +30,7 @@ fun HomeScreen() {
                 Button(
                     onClick = { router.goTo(it) },
                     modifier = Modifier
-                        .padding(8.dp)
+                        .padding(2.dp)
                         .fillMaxWidth()
                 ) {
                     Text(it.name)

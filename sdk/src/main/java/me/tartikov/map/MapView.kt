@@ -27,14 +27,6 @@ private val DefaultCameraPosition = CameraPosition(
     Zoom(9.5f)
 )
 
-// heh, fix it in SDK
-private fun DGisMapView.destroy() {
-    javaClass.getDeclaredMethod("destroy").apply {
-        isAccessible = true
-        invoke(this@destroy)
-    }
-}
-
 @Composable
 fun MapView(
     modifier: Modifier = Modifier,
@@ -68,7 +60,6 @@ fun MapView(
         onDispose {
             mapNode.value?.close()
             mapNode.value = null
-            mapView.value?.destroy()
             mapView.value = null
         }
     }

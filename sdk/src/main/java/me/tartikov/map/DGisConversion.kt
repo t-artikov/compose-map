@@ -7,10 +7,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
-import ru.dgis.sdk.coordinates.Arcdegree
-import ru.dgis.sdk.map.LogicalPixel
+import ru.dgis.sdk.coordinates.Latitude
+import ru.dgis.sdk.coordinates.Longitude
 
-internal fun GeoPoint.toDGisWithElevation() = DGisGeoPointWithElevation(Arcdegree(lat), Arcdegree((lon)))
+internal fun GeoPoint.toDGisWithElevation() = DGisGeoPointWithElevation(Latitude(lat), Longitude((lon)))
 
 internal fun Color.toDGis() = DGisColor(toArgb())
 
